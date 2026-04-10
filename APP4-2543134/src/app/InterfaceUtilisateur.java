@@ -1,3 +1,5 @@
+package app;
+
 import java.io.*;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -6,19 +8,20 @@ public class InterfaceUtilisateur {
     public static final char fSep = File.separatorChar;
     private static final String pathIn = System.getProperty("user.dir") + fSep +"APP4-2543134"+ fSep + "src"+ fSep + "donnees";
 
-    public void affichage() {
+    public String affichage() {
         File dossier = new File(pathIn);
         File[] fichiers = dossier.listFiles();
         Scanner sc = new Scanner(System.in);
-        System.out.println("Vous avez " + FichierDispo().length +"fichier disponible"+ Arrays.toString(FichierDispo()));
+        System.out.println("Vous avez " + FichierDispo().length +" fichier disponible"+ Arrays.toString(FichierDispo()));
         while(true){
         try{
             System.out.println( "Veuiller choisir un des fichiers en selectionant son numero précédement attribuer");
-            int choix = sc.nextInt()+1;
+            int choix = sc.nextInt();
             if (choix >0 & choix < FichierDispo().length ){
-                System.out.println("vous avez choisis le fichier "+ FichierDispo()[choix]);
-                recomencer();
-                break;
+                System.out.println("vous avez choisis le fichier "+choix+" "+ FichierDispo()[choix-1]);
+
+                return FichierDispo()[choix];
+
             }
             throw new IllegalArgumentException();
 
@@ -62,7 +65,7 @@ public class InterfaceUtilisateur {
         File[] fichiers = dossier.listFiles();
         String[] Fichiers = new String[fichiers.length];
         for (int i = 0; i < fichiers.length; i++) {
-            Fichiers[i]="fichier "+(i+1)+"  "+fichiers[i].getName();
+            Fichiers[i]=fichiers[i].getName();
         }
         return Fichiers ;
     }
