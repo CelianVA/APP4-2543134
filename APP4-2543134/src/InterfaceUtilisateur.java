@@ -10,12 +10,51 @@ public class InterfaceUtilisateur {
         File dossier = new File(pathIn);
         File[] fichiers = dossier.listFiles();
         Scanner sc = new Scanner(System.in);
-        System.out.println("Bienvenue");
-        System.out.println("Vous avez " + FichierDispo().length +"fichier disponible"+ Arrays.toString(FichierDispo()) + "\n" +"Veuiller choisir un des fichier en selectionant son numero préceédement attribuer");
-        int choix = sc.nextInt();
-        System.out.println("vous avez choisis le fichier "+ FichierDispo()[choix]);
+        System.out.println("Vous avez " + FichierDispo().length +"fichier disponible"+ Arrays.toString(FichierDispo()));
+        while(true){
+        try{
+            System.out.println( "Veuiller choisir un des fichiers en selectionant son numero précédement attribuer");
+            int choix = sc.nextInt()+1;
+            if (choix >0 & choix < FichierDispo().length ){
+                System.out.println("vous avez choisis le fichier "+ FichierDispo()[choix]);
+                recomencer();
+                break;
+            }
+            throw new IllegalArgumentException();
+
+        }
+        catch (Exception e){
+            System.out.println("Mauvais argument entrer un nouvelle argument");
+            sc.nextLine();
+
+        }
+
+        }
+
+    }
+    public void recomencer() {
+        Scanner sc = new Scanner(System.in);
+        int rep;
+        while (true){
+            System.out.println("Entrer 1 pour recomencer \n Entrer 2 pour sortir du programme");
+            rep = sc.nextInt();
+            try {
+                if (rep==1){
+                affichage();
+            }
+            else if (rep==2) {
+                break;
+            }
+            throw new IllegalArgumentException();
+            }
+            catch (Exception e) {
+
+                System.out.println("Mauvais argument entrer un nouvelle argument");
+                sc.nextLine();
+            }
 
 
+        }
     }
 
     private String[] FichierDispo() {
@@ -23,7 +62,7 @@ public class InterfaceUtilisateur {
         File[] fichiers = dossier.listFiles();
         String[] Fichiers = new String[fichiers.length];
         for (int i = 0; i < fichiers.length; i++) {
-            Fichiers[i]="fichier "+i+"  "+fichiers[i].getName();
+            Fichiers[i]="fichier "+(i+1)+"  "+fichiers[i].getName();
         }
         return Fichiers ;
     }
